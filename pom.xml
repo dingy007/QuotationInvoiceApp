@@ -19,6 +19,7 @@
 		<jstl.version>1.2</jstl.version>
 		<servlet.version>2.5</servlet.version>
 		<!-- Spring -->
+		<spring-boot.version>1.2.4.RELEASE</spring-boot.version>
 		<spring-framework.version>4.1.6.RELEASE</spring-framework.version>
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.3.10.Final</hibernate.version>
@@ -85,6 +86,13 @@
 			</dependency>
 		<!-- Completed Hibernate Related dependencies -->
 
+		<!-- Data Access -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+
 		<!-- Spring Related dependencies -->
 			<!-- Spring core dependencies -->
 			<dependency>
@@ -116,6 +124,23 @@
 				<artifactId>spring-beans</artifactId>
 				<version>${spring-framework.version}</version>
 			</dependency>
+			<!-- Spring Security dependencies -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+
 			<!-- @Inject -->
 			<dependency>
 				<groupId>javax.inject</groupId>
