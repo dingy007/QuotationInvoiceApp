@@ -15,8 +15,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.bsf.util.Bean;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -24,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Main Table
  *
  */
-
 @Entity
 @Table(name="Quote")
 public class Quote implements Serializable{

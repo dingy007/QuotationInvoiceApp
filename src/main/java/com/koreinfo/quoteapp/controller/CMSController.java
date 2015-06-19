@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,14 +22,17 @@ import com.koreinfo.quoteapp.service.QuoteServiceImpl;
 @Controller
 public class CMSController {
 	private static Logger logger = LoggerFactory.getLogger(CMSController.class);
-	private QuoteService quoteSvc = new QuoteServiceImpl();
-	private InvoiceSvc invoiceSvc = new InvoiceSvcImpl();
-
+	
+	@Autowired
+	private QuoteService quoteSvc;
+	@Autowired
+	private InvoiceSvc invoiceSvc;// = new InvoiceSvcImpl();
+	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String showHomePage() {
 		return "home";
 	}
-
+	
 	/*
 	 * For 'home.jsp' page
 	 */
@@ -50,20 +54,22 @@ public class CMSController {
 	@RequestMapping(value="/listAllInvoice", method=RequestMethod.GET)
 	public ModelAndView showInvoiceList() {
 		logger.info("Listing All Invoices");
-		ModelAndView mav = new ModelAndView("ListInvoices");
+		ModelAndView mav = new ModelAndView("listAllQuote");
 		mav.addObject("invoiceList", invoiceSvc.listAllInvoice());
 		return mav;
 	}
 
 	@RequestMapping(value="/addQuote", method=RequestMethod.POST)
 	public String showQuote(@ModelAttribute("quote") @Valid Quote quote, BindingResult result) {
-		logger.info("Listing the newly added Quote");
+		
 		if (result.hasErrors()) {
 			logger.error("Validation has errors! (BindingResult hasErrors)!");
 			logger.error(result.getAllErrors().toString());
 			return "QuoteForm";
 		}
 		else {
+			logger.info("Listing the newly created Quote");
+			logger.info("Quotes company: " + quote.getC_name());
 			quoteSvc.setQuotationNumber(quote);
 			quoteSvc.addQuoteService(quote);
 			Invoice invoice = new Invoice();

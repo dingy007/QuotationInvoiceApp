@@ -79,10 +79,32 @@
 				<version>5.1.3.Final</version>
 			</dependency>
 			<!-- Importing Hibernate-jpa-2.0-api -->
+			<!-- 
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
 				<artifactId>hibernate-jpa-2.0-api</artifactId>
 				<version>1.0.1.Final</version>
+			</dependency>
+			 -->
+			<!-- Commons DBCP -->
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+			</dependency>
+	
+			<!-- Bean Validation API -->
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.1.0.Final</version>
+			</dependency>
+	
+			<!-- Hibernate Validator Engine -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>5.1.3.Final</version>
 			</dependency>
 		<!-- Completed Hibernate Related dependencies -->
 
@@ -125,6 +147,7 @@
 				<version>${spring-framework.version}</version>
 			</dependency>
 			<!-- Spring Security dependencies -->
+			<!-- 
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-taglibs</artifactId>
@@ -136,12 +159,25 @@
 				<version>${spring-security.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			 -->
+<!-- 			
+			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-security</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
 
-			<!-- @Inject -->
+ -->
+ 			<!-- @Inject -->
 			<dependency>
 				<groupId>javax.inject</groupId>
 				<artifactId>javax.inject</artifactId>
@@ -204,7 +240,12 @@
 				<scope>test</scope>
 			</dependency>
 		<!-- Completed Test Artifacts -->
-	</dependencies>
+		<dependency>
+			<groupId>bsf</groupId>
+			<artifactId>bsf</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+  	</dependencies>
 	
     <build>
     	<!-- TO RESOLVE THE MAVEN RESTRICTION ON THE WEBAPP DIRECTORY WITHIN 'src/main/webapp' -->
