@@ -21,6 +21,9 @@ public class QuoteServiceImpl implements QuoteService{
 	@Autowired(required=false)
 	private QuoteDaoImpl quoteDao;// = new QuoteDaoImpl();
 	
+//	@Autowired(required=false)
+//	private QuoteServiceImpl quoteSvc;
+	
 	private Logger logger = LoggerFactory.getLogger(QuoteServiceImpl.class);
 	
 	@Override
@@ -31,7 +34,7 @@ public class QuoteServiceImpl implements QuoteService{
 		logger.info("Quotation number : " + quotation_no);
 		quote.setQuote_date(new Date(System.currentTimeMillis()));
 		quote.setQuote_num(quotation_no);
-		quoteDao.addQuote(quote);
+//		quoteDao.addQuote(quote);
 	}
 	
 	@Transactional
@@ -40,10 +43,10 @@ public class QuoteServiceImpl implements QuoteService{
 		Calendar cal = Calendar.getInstance();
 		String salesPerson = quote.getSales_person();
 		
-		QuoteServiceImpl quoteSvc = new QuoteServiceImpl();
+//		QuoteServiceImpl quoteSvc = new QuoteServiceImpl();
 		
 		String companyInitials = quote.getC_initials();
-		List<Quote> listOfQuotesForCompany = quoteSvc.getQuoteFrmCInitialsSvc(companyInitials);
+		List<Quote> listOfQuotesForCompany = getQuoteFrmCInitialsSvc(companyInitials);
 		int numOfQuoteForCompany = 1;
 		if (!(listOfQuotesForCompany.isEmpty())) {
 			numOfQuoteForCompany += listOfQuotesForCompany.size();

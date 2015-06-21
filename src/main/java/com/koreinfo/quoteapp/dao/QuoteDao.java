@@ -8,6 +8,6 @@ public interface QuoteDao {
 	void addQuote(Quote quote);
 	void deleteQuote();
 	List<Quote> listAllQuotes();
-	List<Quote> getQuoteFrmCInitials(String search);
+	 List<Quote> getQuoteFrmCInitials(String search);
 
 }

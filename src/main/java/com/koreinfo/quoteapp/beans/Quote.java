@@ -3,20 +3,27 @@ package com.koreinfo.quoteapp.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.bsf.util.Bean;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hsqldb.types.UserTypeModifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +36,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Quote")
 public class Quote implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Transient
+	private Logger logger = LoggerFactory.getLogger(Quote.class);
 	@TableGenerator(name="quote_id_gen", table="id_gen", pkColumnName="gen_name"
 			, valueColumnName = "gen_val", pkColumnValue = "quoteId_gen", initialValue=1
 			, allocationSize=100)
@@ -52,7 +65,7 @@ public class Quote implements Serializable{
 	private int c_phone;
 	@Column(name="company_quote_count")
 	private int c_quote_count;
-	@Column(name="quotation_number",unique=true,nullable=false)
+	@Column(name="quotation_number",unique=true,nullable=false,columnDefinition="TEXT")
 //	@NotNull @NotBlank
 	private String quote_num;
 	@Column(name="person_in_charge")
@@ -63,7 +76,7 @@ public class Quote implements Serializable{
 	private double amount;
 	@Column(name="quotation_date")
 	private Date quote_date;
-	@OneToOne(mappedBy = "quote",targetEntity=Invoice.class)
+	@OneToOne(mappedBy = "quote",targetEntity=Invoice.class, orphanRemoval=true, fetch=FetchType.EAGER, optional=true )
 	private Invoice invoice;
 	
 	public Quote() {
@@ -164,6 +177,7 @@ public class Quote implements Serializable{
 	}
 
 	public String getQuote_num() {
+		logger.info("Getting the Quote Number value: " + quote_num);
 		return quote_num;
 	}
 

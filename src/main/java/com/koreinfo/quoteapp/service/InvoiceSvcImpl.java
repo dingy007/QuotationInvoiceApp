@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koreinfo.quoteapp.beans.Invoice;
@@ -15,16 +16,17 @@ import com.koreinfo.quoteapp.dao.InvoiceDaoImpl;
 @Service("invoiceSvc")
 public class InvoiceSvcImpl implements InvoiceSvc {
 
-	private InvoiceDao invoiceDao = new InvoiceDaoImpl();
+	@Autowired(required=false)
+	private InvoiceDao invoiceDao;// = new InvoiceDaoImpl();
 	
 	@Override
 	@Transactional
 	public void addInvoice(Invoice invoice) {
-		InvoiceSvcImpl invoiceSvc = new InvoiceSvcImpl(); 
+//		InvoiceSvcImpl invoiceSvc = new InvoiceSvcImpl(); 
 		Quote quote = invoice.getQuote();
 		String companyInitials = quote.getC_initials();
 
-		List<Invoice> listOfInvoiceForCompany = invoiceSvc.getInvoiceFrmCInitialsSvc(companyInitials);
+		List<Invoice> listOfInvoiceForCompany = getInvoiceFrmCInitialsSvc(companyInitials);
 		
 		int numOfInvoiceForCompany = 1;
 		if (!(listOfInvoiceForCompany.isEmpty())) {
@@ -40,7 +42,7 @@ public class InvoiceSvcImpl implements InvoiceSvc {
 		invoiceNumber.append("/");
 		invoiceNumber.append(month);
 		invoiceNumber.append("/");
-		invoiceNumber.append(invoiceSvc.getInvoiceNumber());
+		invoiceNumber.append(getInvoiceNumber());
 		invoiceNumber.append("/");
 		invoiceNumber.append(numOfInvoiceForCompany);
 		
@@ -51,8 +53,8 @@ public class InvoiceSvcImpl implements InvoiceSvc {
 	
 	@Transactional
 	public int getInvoiceNumber() {
-		InvoiceSvcImpl invoiceSvc = new InvoiceSvcImpl(); 
-		List<Invoice> listOfInvoice = invoiceSvc.listAllInvoice();
+//		InvoiceSvcImpl invoiceSvc = new InvoiceSvcImpl(); 
+		List<Invoice> listOfInvoice = listAllInvoice();
 		int numOfInvoiceNumber = 1;
 		if (!(listOfInvoice.isEmpty())) {
 			numOfInvoiceNumber += listOfInvoice.size();

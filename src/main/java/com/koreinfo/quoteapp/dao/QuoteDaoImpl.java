@@ -83,10 +83,25 @@ public class QuoteDaoImpl implements QuoteDao{
 		logger.info("QuoteDaoImpl.getQuoteFrmCInitials()");
 		logger.info("Printing all the Quotes List based on Company Initials.");
 		List<Quote> allQuotesWCInitials = null;
+		Session session = sessionFactory.getCurrentSession();
+		logger.info("SessionFactory created in listAllQuotes...");
+		try{
+//			allQuotes = session.createQuery("from Quote").list();
+			allQuotesWCInitials = session.createCriteria(Quote.class).list();
+			logger.info("listAllQuotes created Query for getting all Quotes...");
+		}catch(HibernateException e){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		/*
+		List<Quote> allQuotesWCInitials = null;
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Quote.class);
 		String searchCrit = "%" + search + "%" ;
 		crit.add(Restrictions.ilike("c_initials", searchCrit));
 		allQuotesWCInitials = crit.list();
+		*/
+		
+		
 //		session.getTransaction().commit();
 //		session.close();
 		return allQuotesWCInitials;
