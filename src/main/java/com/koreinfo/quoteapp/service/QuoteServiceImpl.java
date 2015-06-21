@@ -34,7 +34,7 @@ public class QuoteServiceImpl implements QuoteService{
 		logger.info("Quotation number : " + quotation_no);
 		quote.setQuote_date(new Date(System.currentTimeMillis()));
 		quote.setQuote_num(quotation_no);
-//		quoteDao.addQuote(quote);
+		quoteDao.addQuote(quote);
 	}
 	
 	@Transactional

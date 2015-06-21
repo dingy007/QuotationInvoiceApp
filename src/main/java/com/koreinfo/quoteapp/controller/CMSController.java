@@ -75,6 +75,7 @@ public class CMSController {
 			Invoice invoice = new Invoice();
 			invoice.setQuote(quote);
 			invoiceSvc.addInvoice(invoice);
+			logger.info("Completed adding quote and invoice, now showing current quote.");
 			return "ShowCurrentQuote";
 		}
 	}
